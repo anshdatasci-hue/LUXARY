@@ -1,4 +1,4 @@
-const API_URL = "http://luxary.onrender.com/api/bookings";
+const API_URL = "https://luxary.onrender.com/api/bookings";
 const password = prompt("Enter admin password:");
 
 if (password !== "admin123") {
@@ -152,7 +152,7 @@ function addActionCell(row, id, status) {
 
 async function updateStatus(id) {
   try {
-    const res = await fetch(`http://luxary.onrender.com/api/bookings/${id}`, {
+    const res = await fetch(`http://luxarys.onrender.com/api/bookings/${id}`, {
       method: "PUT",
       headers: {
         "Content-Type": "application/json",
@@ -183,7 +183,7 @@ async function deleteBooking(id) {
 
     if (!confirmDelete) return;
 
-    const res = await fetch(`http://luxary.onrender.com/api/bookings/${id}`, {
+    const res = await fetch(`http://luxarys.onrender.com/api/bookings/${id}`, {
       method: "DELETE",
     });
 
