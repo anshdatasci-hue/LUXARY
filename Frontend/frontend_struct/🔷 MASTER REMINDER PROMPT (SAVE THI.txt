@@ -1,0 +1,48 @@
+🔷 MASTER REMINDER PROMPT (SAVE THIS)
+We are building a project named "Blue Wind".
+
+Project Goal:
+A premium boutique website for showcasing designs and allowing users to book tailoring appointments (no e-commerce, no payments).
+
+Tech Stack:
+- Frontend: HTML, CSS, JavaScript (built in VS Code)
+- Backend: Node.js + Express
+- Database: MongoDB
+
+Architecture:
+- Frontend and backend are separate
+- Frontend will later connect to backend using APIs
+
+Project Structure:
+- Pages: Home (index.html), Booking, About, Contact, Catalog
+- Shared CSS and JS files
+- Clean modular structure
+
+API Contract (DO NOT CHANGE):
+POST /api/bookings
+Fields:
+{
+  name,
+  phone,
+  address,
+  date,
+  designId,
+  notes
+}
+
+GET /api/designs
+GET /api/designs/:id
+
+Design Style:
+- Minimal, premium boutique feel
+- Colors: Deep Blue (#0A1F44), Cream (#F5F1E9), Gold (#D4AF37)
+- Clean spacing, large images, no clutter
+
+Rules:
+- Keep code clean, modular, and production-ready
+- Maintain consistent naming between frontend and backend
+- Avoid unnecessary complexity
+- Think like a real product, not a template
+
+Current Task:
+[WRITE YOUR TASK HERE]

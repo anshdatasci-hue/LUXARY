@@ -1,0 +1,23 @@
+🔹 Phase 6: Future Features (Optional Expansion)
+Prompt:
+Writing
+
+Using the project context above:
+
+Step 6: Future Features Planning
+
+Now I want to expand:
+
+Add to cart
+Orders system
+Basic authentication (login/signup)
+Admin product upload
+
+Guide me:
+
+What to build first
+Required APIs
+Folder structure changes
+Scalable approach
+
+No code yet—only architecture.

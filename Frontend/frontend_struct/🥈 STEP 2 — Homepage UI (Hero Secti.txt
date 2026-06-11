@@ -1,0 +1,141 @@
+🥈 STEP 2 — Homepage UI (Hero Section)
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Design the homepage (index.html).
+
+Requirements:
+- Create a premium hero section:
+  - Large background image
+  - Heading: "Crafted Elegance"
+  - Subtext: "Tailored designs that define you"
+  - CTA button: "Book Appointment"
+
+- Add section:
+  - Featured designs preview (3–4 cards)
+  - Each card: image + title
+
+Design:
+- Clean spacing
+- Large typography
+- Premium feel (not flashy)
+- Use cream background with deep blue accents
+
+Do NOT add backend or API calls.
+Only frontend UI.
+🥉 STEP 3 — Catalog Page (Design Listing UI)
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Create catalog page UI (catalog.html).
+
+Requirements:
+- Grid layout for designs
+- Each item:
+  - Image
+  - Design name
+  - "View Details" button
+
+- Add filter section (UI only, no logic):
+  - Categories (e.g., Ethnic, Formal, Casual)
+
+Design:
+- Responsive grid
+- Consistent spacing
+- Premium card layout
+
+Do NOT connect to API yet.
+Use placeholder images/data.
+🏅 STEP 4 — Booking Page (IMPORTANT)
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Create booking page UI (booking.html).
+
+Requirements:
+Create a form with fields EXACTLY matching API:
+
+- name (text)
+- phone (number)
+- address (text)
+- date (date picker)
+- designId (hidden or select dropdown)
+- notes (textarea)
+
+- Submit button
+
+Validation:
+- Required fields marked
+
+Design:
+- Clean form layout
+- Centered container
+- Premium minimal styling
+
+Do NOT connect to backend yet.
+Only UI + basic form structure.
+🏆 STEP 5 — About + Contact Pages
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Create About and Contact pages.
+
+About Page:
+- Brand story
+- Mission statement
+- Clean typography
+
+Contact Page:
+- Contact form (name, email, message)
+- Address / phone display
+
+Design:
+- Consistent with homepage
+- Minimal and premium
+
+No backend logic.
+⚡ STEP 6 — Styling Upgrade (Make it LOOK PREMIUM)
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Enhance styles.css for premium design.
+
+Requirements:
+- Improve typography (font pairing)
+- Add spacing system (margin/padding consistency)
+- Add hover effects on buttons/cards
+- Improve navbar styling
+- Improve responsiveness (mobile + tablet)
+
+Design Feel:
+- Luxury boutique
+- Smooth, clean, not flashy
+- Use gold only for highlights (not everywhere)
+
+Do NOT change HTML structure.
+Only improve CSS.
+🔗 STEP 7 — JS Preparation (Before Backend)
+✅ Prompt:
+Project: Blue Wind
+
+Task:
+Prepare frontend JavaScript structure.
+
+Requirements:
+- main.js:
+  - Navbar interactions (if any)
+  - Future API placeholders
+
+- booking.js:
+  - Capture form data
+  - Console.log form data on submit
+
+- Prevent page reload on submit
+
+Do NOT connect to backend yet.
+Prepare for API integration.

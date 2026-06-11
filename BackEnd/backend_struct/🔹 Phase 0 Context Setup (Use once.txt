@@ -1,0 +1,29 @@
+🔹 Phase 0: Context Setup (Use once in every new chat)
+
+Copy this before starting any step:
+
+Writing
+
+Project: Blue Wind (Fashion Catalog Website)
+
+Frontend:
+
+HTML, CSS, basic JS (completed)
+Categories: Ethnic, Formal, Casual
+Cards: image, name, button
+Filtering structure already present (data-category)
+
+Goal:
+
+Build backend step-by-step (beginner-friendly but scalable)
+
+Constraints:
+
+Use simple tech (Node.js + Express preferred)
+Focus on understanding, not just code
+Keep code modular and clean
+
+Instruction:
+Guide me ONLY for the current step.
+Do NOT jump ahead.
+Explain logic briefly, then give code.

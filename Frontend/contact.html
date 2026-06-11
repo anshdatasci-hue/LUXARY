@@ -1,0 +1,452 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blue Wind | Contact</title>
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+        :root {
+            --lux-cream: #f5efe2;
+            --ivory: #fbf6eb;
+            --deep-blue: #091a3d;
+            --metal-gold: #c8a14a;
+            --warm-gold: #d7b868;
+            --text-dark: #202733;
+            --text-muted: #4c5567;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+            background: var(--lux-cream);
+            color: var(--text-dark);
+            line-height: 1.55;
+            min-height: 100vh;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            inset: 0;
+            pointer-events: none;
+            z-index: -1;
+            background:
+                radial-gradient(circle at 20% 25%, rgba(255, 255, 255, 0.28), transparent 43%),
+                radial-gradient(circle at 80% 75%, rgba(9, 26, 61, 0.05), transparent 40%),
+                repeating-linear-gradient(
+                    45deg,
+                    rgba(9, 26, 61, 0.012) 0px,
+                    rgba(9, 26, 61, 0.012) 1px,
+                    transparent 1px,
+                    transparent 5px
+                );
+        }
+
+        .container {
+            width: min(1040px, 92%);
+            margin: 0 auto;
+        }
+
+        .site-header {
+            background: var(--deep-blue);
+            border-bottom: 1px solid rgba(200, 161, 74, 0.28);
+            padding: 1rem 0;
+            box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+        }
+
+        .site-header .container {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+
+        .logo {
+            text-decoration: none;
+            color: #fff;
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: 1.35rem;
+            letter-spacing: 0.03em;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 1.25rem;
+            list-style: none;
+            flex-wrap: wrap;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: #e8ecf4;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+
+        .nav-links a:hover {
+            color: var(--warm-gold);
+        }
+
+        .nav-links a[aria-current="page"] {
+            color: var(--metal-gold);
+        }
+
+        .page-header {
+            padding: 2.75rem 0 2.25rem;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-family: "Playfair Display", Georgia, serif;
+            font-size: clamp(1.85rem, 4vw, 2.5rem);
+            color: #0b224d;
+            font-weight: 600;
+            letter-spacing: 0.02em;
+            margin-bottom: 0.65rem;
+        }
+
+        .page-header p {
+            color: var(--text-muted);
+            font-size: 0.98rem;
+            max-width: 520px;
+            margin: 0 auto;
+        }
+
+        .page-header .accent-line {
+            width: 56px;
+            height: 2px;
+            margin: 0.85rem auto 0;
+            background: linear-gradient(to right, var(--metal-gold), rgba(200, 161, 74, 0.2));
+        }
+
+        .split {
+            display: grid;
+            grid-template-columns: 1fr 1px 1fr;
+            gap: 0;
+            align-items: start;
+            padding-bottom: 3rem;
+        }
+
+        .split-divider {
+            background: linear-gradient(
+                to bottom,
+                transparent,
+                rgba(200, 161, 74, 0.35) 15%,
+                rgba(200, 161, 74, 0.35) 85%,
+                transparent
+            );
+            min-height: 100%;
+        }
+
+        .split-form {
+            padding-right: 2.5rem;
+        }
+
+        .split-info {
+            padding-left: 2.5rem;
+        }
+
+        .panel {
+            background: var(--ivory);
+            border: 1px solid rgba(9, 26, 61, 0.1);
+            border-radius: 12px;
+            padding: 1.75rem 1.75rem 1.85rem;
+        }
+
+        .panel-title {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #0b224d;
+            margin-bottom: 1.25rem;
+            padding-bottom: 0.65rem;
+            border-bottom: 1px solid rgba(200, 161, 74, 0.28);
+        }
+
+        .field {
+            margin-bottom: 1.1rem;
+        }
+
+        .field:last-of-type {
+            margin-bottom: 1.35rem;
+        }
+
+        label {
+            display: block;
+            font-size: 0.8rem;
+            font-weight: 600;
+            color: #0b224d;
+            margin-bottom: 0.4rem;
+        }
+
+        .req {
+            color: var(--metal-gold);
+            margin-left: 0.15em;
+        }
+
+        input[type="text"],
+        input[type="email"],
+        textarea {
+            width: 100%;
+            font-family: inherit;
+            font-size: 1rem;
+            color: var(--text-dark);
+            background: #fff;
+            border: 1px solid rgba(9, 26, 61, 0.18);
+            border-radius: 8px;
+            padding: 0.7rem 0.85rem;
+            transition: border-color 0.2s ease, box-shadow 0.2s ease;
+        }
+
+        textarea {
+            min-height: 140px;
+            resize: vertical;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            border-color: rgba(200, 161, 74, 0.55);
+            box-shadow: 0 0 0 3px rgba(200, 161, 74, 0.18);
+        }
+
+        .btn-submit {
+            display: inline-block;
+            font-family: inherit;
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            border: 1px solid rgba(235, 209, 143, 0.85);
+            color: #1a1510;
+            background: linear-gradient(135deg, var(--metal-gold), var(--warm-gold));
+            cursor: pointer;
+            box-shadow: 0 4px 14px rgba(9, 26, 61, 0.1);
+        }
+
+        .btn-submit:hover {
+            box-shadow: 0 6px 18px rgba(9, 26, 61, 0.14);
+        }
+
+        .btn-submit:focus-visible {
+            outline: none;
+            box-shadow: 0 0 0 3px rgba(200, 161, 74, 0.35);
+        }
+
+        .info-list {
+            list-style: none;
+        }
+
+        .info-item {
+            display: flex;
+            gap: 0.85rem;
+            align-items: flex-start;
+            margin-bottom: 1.35rem;
+        }
+
+        .info-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .info-icon {
+            flex-shrink: 0;
+            width: 40px;
+            height: 40px;
+            border-radius: 8px;
+            background: rgba(9, 26, 61, 0.06);
+            border: 1px solid rgba(200, 161, 74, 0.25);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--deep-blue);
+        }
+
+        .info-icon svg {
+            width: 18px;
+            height: 18px;
+        }
+
+        .info-item dt {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.1em;
+            text-transform: uppercase;
+            color: var(--text-muted);
+            margin-bottom: 0.25rem;
+        }
+
+        .info-item dd {
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            line-height: 1.45;
+        }
+
+        .info-item a {
+            color: var(--deep-blue);
+            text-decoration: none;
+            border-bottom: 1px solid rgba(200, 161, 74, 0.4);
+        }
+
+        .info-item a:hover {
+            color: #143a7a;
+        }
+
+        .map-section {
+            padding-bottom: 4rem;
+        }
+
+        .map-section h2 {
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: #0b224d;
+            margin-bottom: 0.85rem;
+        }
+
+        .map-placeholder {
+            height: 280px;
+            border-radius: 12px;
+            border: 1px dashed rgba(9, 26, 61, 0.18);
+            background: linear-gradient(160deg, #ebe4d8, #e2dbd0);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: rgba(9, 26, 61, 0.38);
+            font-size: 0.88rem;
+            letter-spacing: 0.04em;
+        }
+
+        @media (max-width: 860px) {
+            .split {
+                grid-template-columns: 1fr;
+            }
+
+            .split-divider {
+                display: none;
+            }
+
+            .split-form {
+                padding-right: 0;
+                margin-bottom: 2rem;
+            }
+
+            .split-info {
+                padding-left: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header class="site-header">
+        <div class="container">
+            <a href="index.html" class="logo">Blue Wind</a>
+            <nav aria-label="Main">
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="catalog.html">Catalog</a></li>
+                    <li><a href="booking.html">Booking</a></li>
+                    <li><a href="about.html">About</a></li>
+                    <li><a href="contact.html" aria-current="page">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="page-header">
+            <div class="container">
+                <h1>Get in Touch</h1>
+                <div class="accent-line" aria-hidden="true"></div>
+                <p>Send a message or reach us directly. We respond within one business day.</p>
+            </div>
+        </section>
+
+        <section class="split container" aria-label="Contact form and details">
+            <div class="split-form">
+                <div class="panel">
+                    <p class="panel-title">Send a message</p>
+                    <form action="#" method="post">
+                        <div class="field">
+                            <label for="name">Name<span class="req" aria-hidden="true">*</span></label>
+                            <input id="name" name="name" type="text" autocomplete="name" required aria-required="true">
+                        </div>
+                        <div class="field">
+                            <label for="email">Email<span class="req" aria-hidden="true">*</span></label>
+                            <input id="email" name="email" type="email" autocomplete="email" required aria-required="true">
+                        </div>
+                        <div class="field">
+                            <label for="message">Message<span class="req" aria-hidden="true">*</span></label>
+                            <textarea id="message" name="message" required aria-required="true" placeholder="How can we help?"></textarea>
+                        </div>
+                        <button type="submit" class="btn-submit">Submit</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="split-divider" aria-hidden="true"></div>
+
+            <div class="split-info">
+                <div class="panel">
+                    <p class="panel-title">Contact information</p>
+                    <dl class="info-list">
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M12 21s-7-4.5-7-11a7 7 0 0 1 14 0c0 6.5-7 11-7 11z"/>
+                                    <circle cx="12" cy="10" r="2.5"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <dt>Address</dt>
+                                <dd>12 Heritage Lane, Bandra West<br>Mumbai 400050, India</dd>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.12.86.3 1.7.54 2.5a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.58-1.11a2 2 0 0 1 2.11-.45c.8.24 1.64.42 2.5.54A2 2 0 0 1 22 16.92z"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <dt>Phone</dt>
+                                <dd><a href="tel:+919876543210">+91 98765 43210</a></dd>
+                            </div>
+                        </div>
+                        <div class="info-item">
+                            <div class="info-icon" aria-hidden="true">
+                                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                                    <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/>
+                                    <path d="m22 6-10 7L2 6"/>
+                                </svg>
+                            </div>
+                            <div>
+                                <dt>Email</dt>
+                                <dd><a href="mailto:hello@bluewind.in">hello@bluewind.in</a></dd>
+                            </div>
+                        </div>
+                    </dl>
+                </div>
+            </div>
+        </section>
+
+        <section class="map-section container" aria-label="Map">
+            <h2>Location</h2>
+            <div class="map-placeholder">
+                Map embed placeholder — add your map iframe or image here
+            </div>
+        </section>
+    </main>
+</body>
+</html>

@@ -1,0 +1,524 @@
+/* Blue Wind — About page (scoped) */
+
+@import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+:root {
+  --about-deep-blue: #0a1f44;
+  --about-cream: #f5f1e9;
+  --about-gold: #d4af37;
+  --about-text: #1c2431;
+  --about-muted: #4a5568;
+}
+
+.about-page {
+  font-family: "Inter", system-ui, sans-serif;
+  color: var(--about-text);
+  background: var(--about-cream);
+  line-height: 1.65;
+}
+
+.about-page * {
+  box-sizing: border-box;
+}
+
+/* —— Site header (shared pattern) —— */
+.about-page .site-header {
+  background: var(--about-deep-blue);
+  border-bottom: 1px solid rgba(212, 175, 55, 0.28);
+  padding: 1rem 0;
+}
+
+.about-page .site-header .container {
+  width: min(1120px, 92%);
+  margin: 0 auto;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.about-page .logo {
+  text-decoration: none;
+  color: #fff;
+  font-family: "Playfair Display", Georgia, serif;
+  font-size: 1.35rem;
+  letter-spacing: 0.03em;
+}
+
+.about-page .nav-links {
+  display: flex;
+  gap: 1.25rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  flex-wrap: wrap;
+}
+
+.about-page .nav-links a {
+  text-decoration: none;
+  color: #e8ecf4;
+  font-size: 0.9rem;
+  letter-spacing: 0.03em;
+}
+
+.about-page .nav-links a:hover {
+  color: var(--about-gold);
+}
+
+.about-page .nav-links a[aria-current="page"] {
+  color: var(--about-gold);
+}
+
+/* —— Hero —— */
+.about-page .about-hero {
+  background: var(--about-deep-blue);
+  color: #f0f4fa;
+  text-align: center;
+  padding: 5rem 1.5rem 5.5rem;
+}
+
+.about-page .about-hero-inner {
+  width: min(720px, 100%);
+  margin: 0 auto;
+}
+
+.about-page .about-hero h1 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(2rem, 4.5vw, 2.75rem);
+  letter-spacing: 0.02em;
+  margin: 0 0 1.5rem;
+  line-height: 1.2;
+}
+
+.about-page .about-hero .subtext {
+  font-family: "Inter", system-ui, sans-serif;
+  font-size: clamp(1rem, 2vw, 1.125rem);
+  font-weight: 400;
+  line-height: 1.7;
+  color: rgba(240, 244, 250, 0.88);
+  margin: 0;
+}
+
+/* —— Section 1 — two columns —— */
+.about-page .about-section-1 {
+  padding: 5rem 0 5.5rem;
+}
+
+.about-page .about-section-1 .container {
+  width: min(1040px, 92%);
+  margin: 0 auto;
+}
+
+.about-page .about-section-1 h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.65rem, 3vw, 2.1rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 2.5rem;
+  line-height: 1.25;
+}
+
+.about-page .about-two-col {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 3rem;
+  align-items: start;
+}
+
+.about-page .about-two-col__media {
+  border-radius: 4px;
+  overflow: hidden;
+  border: 1px solid rgba(10, 31, 68, 0.08);
+}
+
+.about-page .about-two-col__media img {
+  display: block;
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  aspect-ratio: 4 / 5;
+}
+
+.about-page .about-two-col__text p {
+  font-size: 1rem;
+  color: var(--about-text);
+  margin: 0 0 1.5rem;
+}
+
+.about-page .about-two-col__text p:last-child {
+  margin-bottom: 0;
+}
+
+/* —— Section 2 — single column —— */
+.about-page .about-section-2 {
+  padding: 0 0 5.5rem;
+}
+
+.about-page .about-section-2 .container {
+  width: min(640px, 92%);
+  margin: 0 auto;
+}
+
+.about-page .about-section-2 h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.65rem, 3vw, 2.1rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 1.75rem;
+  line-height: 1.25;
+}
+
+.about-page .about-section-2 p {
+  font-size: 1rem;
+  margin: 0 0 1.5rem;
+}
+
+.about-page .about-section-2 p:last-child {
+  margin-bottom: 0;
+}
+
+/* —— Section 3 — centered —— */
+.about-page .about-section-3 {
+  padding: 0 0 5.5rem;
+  text-align: center;
+}
+
+.about-page .about-section-3 .container {
+  width: min(640px, 92%);
+  margin: 0 auto;
+}
+
+.about-page .about-section-3 h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.65rem, 3vw, 2.1rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 1.75rem;
+  line-height: 1.25;
+}
+
+.about-page .about-section-3 p {
+  font-size: 1rem;
+  text-align: center;
+  margin: 0 0 1.5rem;
+}
+
+.about-page .about-section-3 p:last-child {
+  margin-bottom: 0;
+}
+
+/* —— Info band — process —— */
+.about-page .about-info-band {
+  padding: 4.5rem 0 5rem;
+  background: rgba(10, 31, 68, 0.04);
+  border-top: 1px solid rgba(10, 31, 68, 0.06);
+  border-bottom: 1px solid rgba(10, 31, 68, 0.06);
+}
+
+.about-page .about-info-band__inner {
+  width: min(720px, 92%);
+  margin: 0 auto;
+}
+
+.about-page .about-info-band__title {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.8vw, 1.95rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 1rem;
+  line-height: 1.25;
+}
+
+.about-page .about-info-band__lead {
+  font-size: 1rem;
+  color: var(--about-text);
+  margin: 0 0 2rem;
+  line-height: 1.65;
+}
+
+.about-page .about-steps {
+  margin: 0;
+  padding: 0 0 0 1.35rem;
+  color: var(--about-text);
+}
+
+.about-page .about-steps li {
+  margin-bottom: 1.15rem;
+  padding-left: 0.35rem;
+  line-height: 1.65;
+}
+
+.about-page .about-steps li:last-child {
+  margin-bottom: 0;
+}
+
+.about-page .about-steps strong {
+  color: var(--about-deep-blue);
+  font-weight: 600;
+}
+
+/* —— Two-panel block —— */
+.about-page .about-two-block {
+  padding: 5rem 0;
+}
+
+.about-page .about-two-block__grid {
+  width: min(1040px, 92%);
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 2.5rem;
+  align-items: start;
+}
+
+.about-page .about-panel {
+  background: #fff;
+  border: 1px solid rgba(10, 31, 68, 0.1);
+  border-radius: 6px;
+  padding: 2rem 1.75rem;
+  box-shadow: 0 8px 24px rgba(10, 31, 68, 0.05);
+}
+
+.about-page .about-panel h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.35rem, 2.4vw, 1.65rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 0.65rem;
+  line-height: 1.25;
+}
+
+.about-page .about-panel__intro {
+  font-size: 0.95rem;
+  color: var(--about-muted);
+  margin: 0 0 1.25rem;
+  line-height: 1.55;
+}
+
+.about-page .about-list {
+  margin: 0;
+  padding-left: 1.2rem;
+  color: var(--about-text);
+}
+
+.about-page .about-list li {
+  margin-bottom: 0.85rem;
+  line-height: 1.6;
+}
+
+.about-page .about-list li:last-child {
+  margin-bottom: 0;
+}
+
+.about-page .about-dl {
+  margin: 0;
+}
+
+.about-page .about-dl > div {
+  margin-bottom: 1.25rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid rgba(10, 31, 68, 0.08);
+}
+
+.about-page .about-dl > div:last-child {
+  margin-bottom: 0;
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.about-page .about-dl dt {
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--about-deep-blue);
+  margin-bottom: 0.35rem;
+}
+
+.about-page .about-dl dd {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--about-text);
+  line-height: 1.55;
+}
+
+/* —— Long-form article block —— */
+.about-page .about-article {
+  padding: 0 0 5.5rem;
+}
+
+.about-page .about-article__inner {
+  width: min(640px, 92%);
+  margin: 0 auto;
+}
+
+.about-page .about-article h2 {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 600;
+  font-size: clamp(1.5rem, 2.8vw, 1.95rem);
+  color: var(--about-deep-blue);
+  margin: 0 0 1.5rem;
+  line-height: 1.25;
+  padding-bottom: 0.75rem;
+  border-bottom: 2px solid rgba(212, 175, 55, 0.35);
+}
+
+.about-page .about-article p {
+  font-size: 1rem;
+  margin: 0 0 1.35rem;
+  line-height: 1.7;
+  color: var(--about-text);
+}
+
+.about-page .about-article p:last-child {
+  margin-bottom: 0;
+}
+
+@media (max-width: 860px) {
+  .about-page .about-two-block__grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* —— Signature —— */
+.about-page .about-signature {
+  padding: 4rem 1.5rem 5.5rem;
+  text-align: center;
+  border-top: 1px solid rgba(10, 31, 68, 0.08);
+}
+
+.about-page .about-signature .accent-line {
+  width: 64px;
+  height: 2px;
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--about-gold),
+    transparent
+  );
+  margin: 0 auto 1.75rem;
+}
+
+.about-page .about-signature p {
+  font-family: "Playfair Display", Georgia, serif;
+  font-weight: 500;
+  font-size: clamp(1.25rem, 2.5vw, 1.5rem);
+  color: var(--about-deep-blue);
+  letter-spacing: 0.02em;
+  margin: 0;
+  line-height: 1.45;
+}
+
+@media (max-width: 800px) {
+  .about-page .about-two-col {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+
+  .about-page .about-hero {
+    padding: 4rem 1.25rem 4.5rem;
+  }
+}
+
+/* 🔹 Card styling */
+.card {
+  padding: 15px;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+  transition: transform 0.2s ease;
+  background: white;
+  /* display: flex; */
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* 🔹 NEW: Image styling (IMPORTANT) */
+.card-img img {
+  width: 100%;
+  height: auto;
+  max-height: 200px;
+  object-fit: cover;
+}
+
+/* 🔹 NEW: Content spacing */
+.card-content {
+  margin-top: 10px;
+}
+
+.category {
+  font-size: 14px;
+  color: gray;
+  margin-bottom: 10px;
+}
+
+/* 🔹 Button styling */
+.book-btn {
+  margin-top: 10px;
+  width: 100%;
+  padding: 12px 0;
+  font-size: 14px;
+  font-weight: 600;
+  border: none;
+  border-radius: 8px;
+  background: #2563eb;
+  color: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+/* Hover effect */
+.book-btn:hover {
+  background: #1e4ed8;
+  transform: scale(1.03);
+}
+
+/* Click effect */
+.book-btn:active {
+  transform: scale(0.97);
+}
+
+#product-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 16px;
+  padding: 15px;
+  display: flex;
+}
+
+@media (max-width: 600px) {
+  #product-container {
+    grid-template-columns: 1fr; /* single column */
+    padding: 10px;
+  }
+
+  .card {
+    padding: 12px;
+  }
+
+  .card-img img {
+    height: 160px;
+  }
+
+  .book-btn {
+    padding: 10px;
+    font-size: 14px;
+  }
+}
+
+/* your existing CSS above */
+
+/* 🔽 ALWAYS put responsive overrides at the end */
+@media (max-width: 768px) {
+  #product-container {
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+  }
+
+  .card {
+    width: 100% !important;
+  }
+}

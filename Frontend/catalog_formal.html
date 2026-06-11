@@ -1,0 +1,669 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Wind | Formal Collection</title>
+    <script defer src="js/main.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      /* —— Filters (UI only) —— */
+      .filters {
+        padding: 0 0 2.75rem;
+      }
+
+      .filters-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem 1rem;
+      }
+
+      .filters-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .filter-pill {
+        appearance: none;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 500;
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(9, 26, 61, 0.18);
+        background: linear-gradient(160deg, var(--ivory), #f3ebe0);
+        color: #0b224d;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(9, 26, 61, 0.06);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .filter-pill:hover {
+        border-color: rgba(200, 161, 74, 0.55);
+        box-shadow: 0 6px 18px rgba(9, 26, 61, 0.1);
+      }
+
+      .filter-pill.is-active {
+        border-color: rgba(200, 161, 74, 0.75);
+        background: linear-gradient(
+          135deg,
+          rgba(200, 161, 74, 0.22),
+          rgba(215, 184, 104, 0.12)
+        );
+      }
+
+      :root {
+        --lux-cream: #f4f3ef;
+        --ivory: #faf9f6;
+        --deep-blue: #091a3d;
+        --metal-gold: #8e9aab;
+        --accent-steel: #5c6678;
+        --text-dark: #1a1f28;
+        --text-muted: #4a5568;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--lux-cream);
+        color: var(--text-dark);
+        line-height: 1.55;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          radial-gradient(circle at 18% 20%, rgba(255, 255, 255, 0.45), transparent 42%),
+          radial-gradient(circle at 82% 78%, rgba(9, 26, 61, 0.04), transparent 38%),
+          repeating-linear-gradient(
+            -45deg,
+            rgba(26, 31, 40, 0.02) 0px,
+            rgba(26, 31, 40, 0.02) 1px,
+            transparent 1px,
+            transparent 6px
+          );
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        background: var(--deep-blue);
+        border-bottom: 1px solid rgba(142, 154, 171, 0.35);
+        padding: 1rem 0;
+        box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+      }
+
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.9rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: #c5ced9;
+      }
+
+      .page-intro {
+        text-align: center;
+        padding: 3.5rem 1rem 2.5rem;
+      }
+
+      .page-intro .kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .page-intro h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4vw, 2.65rem);
+        color: var(--deep-blue);
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .accent-line {
+        width: 64px;
+        height: 2px;
+        margin: 0 auto 1.25rem;
+        background: linear-gradient(to right, transparent, var(--accent-steel), transparent);
+      }
+
+      .page-intro p {
+        max-width: 640px;
+        margin: 0 auto;
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .catalog {
+        padding: 0 0 5.5rem;
+      }
+
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.75rem;
+      }
+
+      .design-card {
+        background: linear-gradient(165deg, var(--ivory), #f2f0eb);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(92, 102, 120, 0.22);
+        box-shadow:
+          0 10px 20px rgba(9, 26, 61, 0.06),
+          0 22px 44px rgba(13, 16, 24, 0.1);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.28s ease,
+          box-shadow 0.28s ease,
+          border-color 0.28s ease;
+      }
+
+      .design-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(92, 102, 120, 0.4);
+        box-shadow:
+          0 14px 28px rgba(9, 26, 61, 0.09),
+          0 28px 52px rgba(13, 16, 24, 0.14);
+      }
+
+      .card-image-draft {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        min-height: 260px;
+        background: linear-gradient(180deg, #e8e6e1 0%, #ddd9d2 100%);
+        border-bottom: 1px solid rgba(92, 102, 120, 0.2);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-image-draft::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 2px dashed rgba(9, 26, 61, 0.14);
+        border-radius: 10px;
+        pointer-events: none;
+      }
+
+      .card-image-draft .draft-label {
+        position: relative;
+        z-index: 1;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(9, 26, 61, 0.35);
+        text-align: center;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+
+      .card-body {
+        padding: 1.25rem 1.35rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.85rem;
+      }
+
+      .category-pill {
+        align-self: flex-start;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(9, 26, 61, 0.06);
+        color: var(--deep-blue);
+        border: 1px solid rgba(92, 102, 120, 0.28);
+      }
+
+      .design-name {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0c234f;
+        letter-spacing: 0.02em;
+      }
+
+      .design-name::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        margin-top: 0.5rem;
+        background: linear-gradient(to right, var(--accent-steel), transparent);
+      }
+
+      .meta-block {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+
+      .meta-block dt {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-top: 0.65rem;
+      }
+
+      .meta-block dt:first-child {
+        margin-top: 0;
+      }
+
+      .meta-block dd {
+        margin: 0.25rem 0 0;
+      }
+
+      .prompt-details {
+        margin-top: 0.35rem;
+        border-top: 1px solid rgba(92, 102, 120, 0.18);
+        padding-top: 0.85rem;
+      }
+
+      .prompt-details summary {
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--deep-blue);
+        list-style: none;
+      }
+
+      .prompt-details summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .prompt-details summary::after {
+        content: " +";
+        color: var(--accent-steel);
+        font-weight: 700;
+      }
+
+      .prompt-details[open] summary::after {
+        content: " −";
+      }
+
+      .prompt-text {
+        margin-top: 0.65rem;
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+
+      .back-row {
+        text-align: center;
+        padding-bottom: 3rem;
+      }
+
+      .back-row a {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--deep-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(92, 102, 120, 0.45);
+      }
+
+      .back-row a:hover {
+        color: #0c234f;
+        border-bottom-color: var(--accent-steel);
+      }
+
+      @media (max-width: 640px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Blue Wind</a>
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="catalog_ethaic.html">Ethnic Heritage</a></li>
+            <li><a href="catalog_formal.html" aria-current="page">Formal</a></li>
+            <li><a href="catalog_casual.html">Casual</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-intro">
+        <div class="container">
+          <p class="kicker">Sharp · Minimal · Elite</p>
+          <h1>Formal Collection</h1>
+          <div class="accent-line" aria-hidden="true"></div>
+          <p>
+            Eight luxury formal pieces—bandhgalas, suits, blazers, and
+            Indo-western tailoring—with color, fabric, use-case, and editorial
+            image prompts (clean set, sharp light).
+          </p>
+        </div>
+      </section>
+
+       <section class="filters" aria-label="Filter by category">
+        <div class="container">
+          <div class="filters-inner">
+            <span class="filters-label">Categories</span>
+
+            <a href="catalog.html" class="filter-pill is-active" data-category="">All</a>
+            <a href="catalog_ethaic.html" class="filter-pill" data-category="ethnic">Ethnic</a>
+            <a href="catalog_formal.html" class="filter-pill" data-category="formal">Formal</a>
+            <a href="catalog_casual.html" class="filter-pill" data-category="casual">Casual</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog" aria-labelledby="formal-grid-heading">
+        <h2 id="formal-grid-heading" class="visually-hidden">Design listings</h2>
+        <div class="container">
+          <div class="catalog-grid">
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Bandhgala</span>
+                <h3 class="design-name">Meridian</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Midnight navy, charcoal lining, brushed silver hardware.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Wool-silk blend with cupro lining; matte finish body.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Corporate boardroom, investor dinners, black-tie Indian formal.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Male model, full-length, tailored midnight bandhgala with
+                    standing collar, minimal stance; seamless cool-grey cyclorama,
+                    crisp key light from camera-left, tight rim for shoulder
+                    definition; luxury menswear editorial, 85mm, f/4, high
+                    contrast, zero clutter, fabric grain visible, Vogue-level
+                    sharpness.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Bandhgala</span>
+                <h3 class="design-name">Cipher Line</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Graphite body, true black trousers, ice-white pocket square.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Tropical wool; breathable, crease-resistant weave.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Leadership keynotes, client-facing reviews, premium corporate.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Three-quarter length, graphite bandhgala, hands relaxed;
+                    pure white infinity background; dual softboxes for even fill,
+                    single hard accent for jawline; editorial catalog, neutral
+                    color grade, surgical focus on collar and placket, no props.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Suit</span>
+                <h3 class="design-name">North Axis</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>True navy suit, crisp white shirt, silver-grey tie accent.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Super 120s wool twill; half-canvas construction.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Corporate HQ, M&amp;A meetings, executive travel days.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Full suit on model, straight posture, navy two-button jacket;
+                    pale concrete studio floor, soft gradient wall; sharp
+                    butterfly lighting, subtle shadow under lapel; high-end
+                    tailoring campaign, 50mm, editorial crop at mid-thigh, fabric
+                    drape crisp.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Suit</span>
+                <h3 class="design-name">Precision Set</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Charcoal base, subtle blue pinstripe, white shirt, black oxford.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Wool blend with stretch; year-round weight.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Conferences, panel moderation, awards evenings (business).</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Seated and standing variants, pinstripe visible at close range;
+                    seamless mid-grey backdrop; cross-lighting for stripe
+                    definition without glare; professional editorial shoot, cool
+                    neutral grade, pin-sharp eyes and lapels.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Blazer</span>
+                <h3 class="design-name">Monolith</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Deep charcoal blazer, black trousers, fog-grey tee optional.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Unstructured wool hopsack; natural shoulder.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Creative corporate, leadership Fridays, premium travel.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Relaxed blazer styling, one button undone, hands in pockets
+                    (one shot); clean warm-white cyclorama; sharp side key,
+                    minimal fill; modern luxury lookbook, full body, soft shadow
+                    pool on floor, texture of hopsack emphasized.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Blazer</span>
+                <h3 class="design-name">The Frame</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Midnight olive, black buttons, pale stone shirt.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Tropical wool basketweave; half-lined.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Gallery openings, design-sector events, evening networking.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Olive blazer, three-quarter profile; minimal gallery-white wall,
+                    single vertical shadow line; directional hard light for
+                    sculptural look; editorial fashion, 35mm environmental feel,
+                    elite understated mood, no accessories beyond watch.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Indo-western formal</span>
+                <h3 class="design-name">Continuum</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Black jacket, gunmetal satin trim, ivory inner kurta.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Wool shell with satin shawl collar; lightweight construction.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Wedding reception (evening), gala, cocktail-black-tie hybrid.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Indo-western jacket with kurta visible at collar; model
+                    front-facing; deep charcoal seamless background; dramatic but
+                    clean rim light, soft frontal fill; luxury eveningwear
+                    editorial, high resolution, satin edge catchlight, no pattern
+                    distraction.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Indo-western formal</span>
+                <h3 class="design-name">Vertex</h3>
+                <dl class="meta-block">
+                  <dt>Color palette</dt>
+                  <dd>Ivory jacket, midnight trousers, cool silver accents.</dd>
+                  <dt>Fabric</dt>
+                  <dd>Linen-wool blend; breathable, structured drape.</dd>
+                  <dt>Use-case</dt>
+                  <dd>Destination corporate summits, summer black-tie adjacent, soirées.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Ivory Indo-western ensemble, full length; bright seamless
+                    studio with slight warm bounce; sharp specular on linen weave;
+                    fashion editorial, elite minimal styling, negative space,
+                    symmetrical composition, catalog-ready.
+                  </p>
+                </details>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="back-row">
+        <div class="container">
+          <a href="catalog.html">← Back to main catalog</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

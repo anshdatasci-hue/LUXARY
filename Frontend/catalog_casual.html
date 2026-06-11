@@ -1,0 +1,702 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Wind | Casual &amp; Lifestyle</title>
+    <script defer src="js/main.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      /* —— Filters (UI only) —— */
+      .filters {
+        padding: 0 0 2.75rem;
+      }
+
+      .filters-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem 1rem;
+      }
+
+      .filters-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .filter-pill {
+        appearance: none;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 500;
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(9, 26, 61, 0.18);
+        background: linear-gradient(160deg, var(--ivory), #f3ebe0);
+        color: #0b224d;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(9, 26, 61, 0.06);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .filter-pill:hover {
+        border-color: rgba(200, 161, 74, 0.55);
+        box-shadow: 0 6px 18px rgba(9, 26, 61, 0.1);
+      }
+
+      .filter-pill.is-active {
+        border-color: rgba(200, 161, 74, 0.75);
+        background: linear-gradient(
+          135deg,
+          rgba(200, 161, 74, 0.22),
+          rgba(215, 184, 104, 0.12)
+        );
+      }
+
+
+      :root {
+        --lux-cream: #f6f3ee;
+        --ivory: #fcfaf6;
+        --deep-blue: #091a3d;
+        --accent-sage: #7d8f7a;
+        --accent-sand: #c4a574;
+        --text-dark: #1e2430;
+        --text-muted: #5a6270;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--lux-cream);
+        color: var(--text-dark);
+        line-height: 1.55;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          radial-gradient(circle at 15% 30%, rgba(255, 252, 248, 0.9), transparent 45%),
+          radial-gradient(circle at 85% 70%, rgba(125, 143, 122, 0.06), transparent 40%),
+          repeating-linear-gradient(
+            90deg,
+            rgba(196, 165, 116, 0.03) 0px,
+            rgba(196, 165, 116, 0.03) 1px,
+            transparent 1px,
+            transparent 8px
+          );
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        background: var(--deep-blue);
+        border-bottom: 1px solid rgba(196, 165, 116, 0.25);
+        padding: 1rem 0;
+        box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+      }
+
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.9rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: #d4c4a8;
+      }
+
+      .page-intro {
+        text-align: center;
+        padding: 3.5rem 1rem 2.5rem;
+      }
+
+      .page-intro .kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .page-intro h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4vw, 2.65rem);
+        color: var(--deep-blue);
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .accent-line {
+        width: 64px;
+        height: 2px;
+        margin: 0 auto 1.25rem;
+        background: linear-gradient(to right, transparent, var(--accent-sand), transparent);
+      }
+
+      .page-intro p {
+        max-width: 640px;
+        margin: 0 auto;
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .catalog {
+        padding: 0 0 5.5rem;
+      }
+
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.75rem;
+      }
+
+      .design-card {
+        background: linear-gradient(165deg, var(--ivory), #f5f2ec);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(196, 165, 116, 0.28);
+        box-shadow:
+          0 10px 20px rgba(9, 26, 61, 0.05),
+          0 22px 44px rgba(13, 16, 24, 0.08);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.28s ease,
+          box-shadow 0.28s ease,
+          border-color 0.28s ease;
+      }
+
+      .design-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(125, 143, 122, 0.35);
+        box-shadow:
+          0 14px 28px rgba(9, 26, 61, 0.07),
+          0 28px 52px rgba(13, 16, 24, 0.11);
+      }
+
+      .card-image-draft {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        min-height: 260px;
+        background: linear-gradient(180deg, #ebe8e0 0%, #e0dbd2 100%);
+        border-bottom: 1px solid rgba(196, 165, 116, 0.22);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-image-draft::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 2px dashed rgba(9, 26, 61, 0.12);
+        border-radius: 10px;
+        pointer-events: none;
+      }
+
+      .card-image-draft .draft-label {
+        position: relative;
+        z-index: 1;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(9, 26, 61, 0.32);
+        text-align: center;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+
+      .card-body {
+        padding: 1.25rem 1.35rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.85rem;
+      }
+
+      .category-pill {
+        align-self: flex-start;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(125, 143, 122, 0.1);
+        color: var(--deep-blue);
+        border: 1px solid rgba(196, 165, 116, 0.3);
+      }
+
+      .design-name {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0c234f;
+        letter-spacing: 0.02em;
+      }
+
+      .design-name::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        margin-top: 0.5rem;
+        background: linear-gradient(to right, var(--accent-sage), transparent);
+      }
+
+      .meta-block {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+
+      .meta-block dt {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-top: 0.65rem;
+      }
+
+      .meta-block dt:first-child {
+        margin-top: 0;
+      }
+
+      .meta-block dd {
+        margin: 0.25rem 0 0;
+      }
+
+      .prompt-details {
+        margin-top: 0.35rem;
+        border-top: 1px solid rgba(196, 165, 116, 0.22);
+        padding-top: 0.85rem;
+      }
+
+      .prompt-details summary {
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--deep-blue);
+        list-style: none;
+      }
+
+      .prompt-details summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .prompt-details summary::after {
+        content: " +";
+        color: var(--accent-sage);
+        font-weight: 700;
+      }
+
+      .prompt-details[open] summary::after {
+        content: " −";
+      }
+
+      .prompt-text {
+        margin-top: 0.65rem;
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+
+      .back-row {
+        text-align: center;
+        padding-bottom: 3rem;
+      }
+
+      .back-row a {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--deep-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(196, 165, 116, 0.45);
+      }
+
+      .back-row a:hover {
+        color: #0c234f;
+        border-bottom-color: var(--accent-sage);
+      }
+
+      @media (max-width: 640px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Blue Wind</a>
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="catalog_ethaic.html">Ethnic Heritage</a></li>
+            <li><a href="catalog_formal.html">Formal</a></li>
+            <li><a href="catalog_casual.html" aria-current="page">Casual</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-intro">
+        <div class="container">
+          <p class="kicker">Relaxed luxury · Minimal · Modern</p>
+          <h1>Casual &amp; Lifestyle</h1>
+          <div class="accent-line" aria-hidden="true"></div>
+          <p>
+            Eight easy pieces—linen shirts, kurta sets, relaxed coordinates, and
+            fusion looks—with fabric notes, comfort-first copy, and natural
+            lifestyle image prompts.
+          </p>
+        </div>
+      </section>
+
+      <section class="filters" aria-label="Filter by category">
+        <div class="container">
+          <div class="filters-inner">
+            <span class="filters-label">Categories</span>
+
+            <a href="catalog.html" class="filter-pill is-active" data-category="">All</a>
+            <a href="catalog_ethaic.html" class="filter-pill" data-category="ethnic">Ethnic</a>
+            <a href="catalog_formal.html" class="filter-pill" data-category="formal">Formal</a>
+            <a href="catalog_casual.html" class="filter-pill" data-category="casual">Casual</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog" aria-labelledby="casual-grid-heading">
+        <h2 id="casual-grid-heading" class="visually-hidden">Design listings</h2>
+        <div class="container">
+          <div class="catalog-grid">
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Linen shirt</span>
+                <h3 class="design-name">Driftline</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    100% European flax linen, garment-washed for softness; mother-of-pearl
+                    buttons; breathable open weave.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Light on the skin, naturally thermoregulating—easy drape that
+                    softens with wear without losing structure at the collar.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Model in an untucked oatmeal linen shirt, golden-hour natural
+                    light on a quiet coastal path; soft wind, shallow depth of field;
+                    lifestyle editorial, 35mm, warm minimal grade, no harsh flash,
+                    relaxed posture, ocean or dunes softly blurred in background.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Linen shirt</span>
+                <h3 class="design-name">Pale Horizon</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Linen-viscose blend for fluid drape; pre-shrunk; camp collar
+                    option; matte finish.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Softer hand than pure linen for all-day wear; resists cling;
+                    ideal when you want ease without looking underdressed.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Urban rooftop at late afternoon, diffused sunlight through haze;
+                    sage-toned linen shirt, sleeves lightly rolled; candid walking
+                    shot; modern lifestyle campaign, clean composition, city skyline
+                    bokeh, natural skin tones, editorial but approachable.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Kurta set</span>
+                <h3 class="design-name">Slow Courtyard</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Cotton-modal kurta with matte finish; matching tapered pajama
+                    with soft elastic and drawstring; side pockets on kurta.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Feather-light on the body, moisture-friendly for warm days;
+                    relaxed fit through the chest, easy movement for lounging or
+                    stepping out.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Sunlit inner courtyard with potted plants and lime-wash walls;
+                    model seated on low bench in ivory kurta set; dappled natural
+                    light, soft shadows; premium lifestyle lookbook, 50mm, calm
+                    palette, unhurried mood, heritage setting without costume feel.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Kurta set</span>
+                <h3 class="design-name">Kashi Soft</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Khadi-inspired cotton blend with subtle slub texture; straight
+                    kurta; wide-leg parallel pants with soft drape.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Airy and tactile—breathable weave that keeps you cool; generous
+                    cut avoids restriction at the hips and knees.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Outdoor weekend market or tree-lined lane, morning light;
+                    earth-tone kurta set, hands in pockets mid-stride; documentary
+                    lifestyle feel, 35mm, sharp subject soft background, modern
+                    Indian minimal aesthetic, no staging clutter.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Relaxed wear</span>
+                <h3 class="design-name">Offshore Set</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Cotton French terry hoodie and matching tapered joggers;
+                    brushed interior; ribbed cuffs; tonal drawcord.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Plush inner face for couch-to-café days; stretch recovery keeps
+                    the silhouette clean—elevated loungewear that still photographs
+                    like a brand story.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Bright overcast day, soft even natural light; model on wooden
+                    deck or minimal patio furniture in matching terry set; relaxed
+                    luxury athleisure editorial, full body and seated crop, neutral
+                    exterior architecture, calm coastal or suburban green blur.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Relaxed wear</span>
+                <h3 class="design-name">Loft Hour</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    TENCEL™ lyocell blend crewneck tee; paired lyocell-linen
+                    relaxed trousers with elastic back waist.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Silky cool touch, moisture-wicking; anti-static drape that
+                    skims without clinging—made for long flights and slow Sundays.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Sun-filled loft or glass-walled room, large windows, morning
+                    natural light; model standing near window in tonal stone and
+                    fog palette; minimalist interior lifestyle shoot, soft shadows
+                    on floor, architectural lines, premium quiet-luxury mood.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Fusion outfit</span>
+                <h3 class="design-name">Crosswalk</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Oversized linen overshirt in double cloth; inner fine-gauge
+                    cotton tee; tapered stretch-cotton trousers with pressed crease.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    Layer-friendly without bulk—shirt works open or closed; stretch
+                    in the leg keeps stride easy from commute to dinner.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    City sidewalk at blue hour, available street light mixed with
+                    residual sky glow; fusion layered look, walking shot; cinematic
+                    lifestyle editorial, natural ambient light only, shallow DOF,
+                    modern metro backdrop softly out of focus, confident casual pace.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Fusion outfit</span>
+                <h3 class="design-name">Sideline</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Short-length band-collar kurta in cotton poplin; paired with
+                    wide-leg denim in soft stretch selvedge-weight feel; leather
+                    slide sandals optional.
+                  </dd>
+                  <dt>Comfort</dt>
+                  <dd>
+                    East-meets-west ease: kurta length hits mid-hip for mobility;
+                    denim with stretch recovery so sitting and cycling never bind.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>Image prompt</summary>
+                  <p class="prompt-text">
+                    Weekend brunch patio or arts district lane, midday soft sun with
+                    scrim from trees; candid laugh or mid-conversation pose; fusion
+                    fashion lifestyle, 50mm, warm highlights cool shadows, plants and
+                    café geometry in background, authentic not staged, modern
+                    premium brand energy.
+                  </p>
+                </details>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="back-row">
+        <div class="container">
+          <a href="catalog.html">← Back to main catalog</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

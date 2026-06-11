@@ -1,0 +1,28 @@
+🔹 Phase 1: Backend Initialization
+Goal:
+
+Set up server and basic routing
+
+Use this prompt in new chat:
+Writing
+
+Using the project context above:
+
+Step 1: Initialize backend
+
+I want to:
+
+Create backend folder
+Setup Node.js + Express server
+Run server on localhost:5000
+Create a test route (/api/test)
+
+Guide me step-by-step:
+
+Folder setup
+npm setup
+Install dependencies
+Write server.js
+Run server
+
+Explain briefly, then give code.

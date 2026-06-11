@@ -1,0 +1,494 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="css/style.css" />
+    <script src="js/main.js"></script>
+    <title>Blue Wind | Catalog</title>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      :root {
+        --lux-cream: #f5efe2;
+        --ivory: #fbf6eb;
+        --deep-blue: #091a3d;
+        --metal-gold: #c8a14a;
+        --warm-gold: #d7b868;
+        --text-dark: #202733;
+        --text-muted: #4c5567;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--lux-cream);
+        color: var(--text-dark);
+        line-height: 1.5;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          radial-gradient(
+            circle at 20% 25%,
+            rgba(255, 255, 255, 0.3),
+            transparent 43%
+          ),
+          radial-gradient(
+            circle at 80% 75%,
+            rgba(9, 26, 61, 0.05),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(9, 26, 61, 0.014) 0px,
+            rgba(9, 26, 61, 0.014) 1px,
+            transparent 1px,
+            transparent 5px
+          );
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      /* —— Top bar —— */
+      .site-header {
+        background: var(--deep-blue);
+        border-bottom: 1px solid rgba(200, 161, 74, 0.28);
+        padding: 1rem 0;
+        box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+      }
+
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.9rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links a:hover {
+        color: var(--warm-gold);
+      }
+
+      .nav-links a[aria-current="page"] {
+        color: var(--metal-gold);
+      }
+
+      /* —— Page intro —— */
+      .page-intro {
+        padding: 3.25rem 0 2.5rem;
+        text-align: center;
+      }
+
+      .page-intro .kicker {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        color: #786942;
+        margin-bottom: 0.65rem;
+      }
+
+      .page-intro h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2rem, 4.5vw, 2.85rem);
+        color: #0b224d;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.75rem;
+      }
+
+      .page-intro .accent-line {
+        width: 72px;
+        height: 2px;
+        margin: 0 auto 1rem;
+        background: linear-gradient(
+          to right,
+          var(--metal-gold),
+          rgba(200, 161, 74, 0.25)
+        );
+      }
+
+      .page-intro p {
+        color: var(--text-muted);
+        max-width: 520px;
+        margin: 0 auto;
+        font-size: 0.98rem;
+      }
+
+      /* —— Filters (UI only) —— */
+      .filters {
+        padding: 0 0 2.75rem;
+      }
+
+      .filters-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem 1rem;
+      }
+
+      .filters-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .filter-pill {
+        appearance: none;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 500;
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(9, 26, 61, 0.18);
+        background: linear-gradient(160deg, var(--ivory), #f3ebe0);
+        color: #0b224d;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(9, 26, 61, 0.06);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .filter-pill:hover {
+        border-color: rgba(200, 161, 74, 0.55);
+        box-shadow: 0 6px 18px rgba(9, 26, 61, 0.1);
+      }
+
+      .filter-pill.is-active {
+        border-color: rgba(200, 161, 74, 0.75);
+        background: linear-gradient(
+          135deg,
+          rgba(200, 161, 74, 0.22),
+          rgba(215, 184, 104, 0.12)
+        );
+      }
+
+      /* —— Catalog grid —— */
+      .catalog {
+        padding: 0 0 5.5rem;
+      }
+
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+        gap: 1.75rem;
+      }
+
+      .design-card {
+        background: linear-gradient(165deg, var(--ivory), #f7f1e6);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(200, 161, 74, 0.35);
+        box-shadow:
+          0 10px 20px rgba(9, 26, 61, 0.08),
+          0 22px 44px rgba(13, 16, 24, 0.12);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.28s ease,
+          box-shadow 0.28s ease,
+          border-color 0.28s ease;
+      }
+
+      .design-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(200, 161, 74, 0.65);
+        box-shadow:
+          0 14px 28px rgba(9, 26, 61, 0.11),
+          0 28px 52px rgba(13, 16, 24, 0.16);
+      }
+
+      /* Image draft slot — replace inner block with <img> when ready */
+      .card-image-draft {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        min-height: 280px;
+        background: linear-gradient(180deg, #ebe4d8 0%, #e2dbd0 100%);
+        border-bottom: 1px solid rgba(200, 161, 74, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-image-draft::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to top,
+          rgba(10, 31, 68, 0.55),
+          rgba(10, 31, 68, 0.1),
+          transparent
+        );
+        opacity: 0;
+        transition: opacity 0.3s ease;
+      }
+
+      .design-card:hover .card-image-draft::after {
+        opacity: 1;
+      }
+
+      .card-image-draft::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 2px dashed rgba(9, 26, 61, 0.18);
+        border-radius: 10px;
+        pointer-events: none;
+      }
+
+      .card-image-draft .draft-label {
+        position: relative;
+        z-index: 1;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(9, 26, 61, 0.38);
+        text-align: center;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+
+      /* When you add a photo: put <img class="card-photo" src="..." alt="..."> inside .card-image-draft and hide .draft-label */
+      .card-image-draft .card-photo {
+        position: absolute;
+        inset: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: cover;
+        z-index: 2;
+      }
+
+      .card-body {
+        padding: 1.35rem 1.35rem 1.5rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 1rem;
+      }
+
+      .design-name {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0c234f;
+        letter-spacing: 0.02em;
+      }
+
+      .design-name::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        margin-top: 0.5rem;
+        background: linear-gradient(to right, var(--metal-gold), transparent);
+      }
+
+      .btn-details {
+        display: inline-block;
+        text-align: center;
+        text-decoration: none;
+        font-size: 0.86rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        padding: 0.72rem 1.25rem;
+        border-radius: 999px;
+        color: #1a1510;
+        background: linear-gradient(
+          135deg,
+          var(--metal-gold),
+          var(--warm-gold)
+        );
+        border: 1px solid rgba(235, 209, 143, 0.85);
+        box-shadow: 0 6px 16px rgba(9, 26, 61, 0.12);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+        margin-top: auto;
+      }
+
+      .btn-details:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 10px 22px rgba(9, 26, 61, 0.16);
+      }
+
+      @media (max-width: 640px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+          gap: 1.5rem;
+        }
+
+        .page-intro {
+          padding: 2.5rem 0 2rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Blue Wind</a>
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html" aria-current="page">Catalog</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-intro">
+        <div class="container">
+          <p class="kicker">The Collection</p>
+          <h1>Catalog</h1>
+          <div class="accent-line" aria-hidden="true"></div>
+          <p>
+            Browse our curated designs. Replace image slots with your
+            photography when ready.
+          </p>
+        </div>
+      </section>
+
+      <section class="filters" aria-label="Filter by category">
+        <div class="container">
+          <div class="filters-inner">
+            <span class="filters-label">Categories</span>
+
+            <a href="catalog.html" class="filter-pill is-active" data-category="">All</a>
+            <a href="catalog_ethaic.html" class="filter-pill" data-category="ethnic">Ethnic</a>
+            <a href="catalog_formal.html" class="filter-pill" data-category="formal">Formal</a>
+            <a href="catalog_casual.html" class="filter-pill" data-category="casual">Casual</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog">
+        <div class="container">
+          <div class="catalog-grid">
+            <!-- Photo: inside .card-image-draft add <img class="card-photo" src="images/your-file.jpg" alt="Design name"> and remove .draft-label -->
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Midnight Silk Saree</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Heritage Sherwani</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Indo-Western Ensemble</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Embroidered Lehenga</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Formal Bandhgala</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft">
+                <span class="draft-label"
+                  >Image draft<br />Add your photo here</span
+                >
+              </div>
+              <div class="card-body">
+                <h2 class="design-name">Linen Kurta Set</h2>
+                <a href="#" class="btn-details">View Details</a>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>

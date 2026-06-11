@@ -1,0 +1,27 @@
+🔹 Phase 5: MongoDB Integration (Upgrade)
+Goal:
+
+Move from JSON → real database
+
+Prompt:
+Writing
+
+Using the project context above:
+
+Step 5: Add MongoDB
+
+I want to:
+
+Replace JSON with MongoDB
+Create Product schema using Mongoose
+Connect database to backend
+Store and fetch products
+
+Guide me step-by-step:
+
+Install MongoDB & Mongoose
+Create schema/model
+Connect DB (config/db.js)
+Update controllers
+
+Explain clearly how data flows now.

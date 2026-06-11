@@ -1,0 +1,698 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Wind | Ethnic Heritage Catalog</title>
+    <script defer src="js/main.js"></script>
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      /* —— Filters (UI only) —— */
+      .filters {
+        padding: 0 0 2.75rem;
+      }
+
+      .filters-inner {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        justify-content: center;
+        gap: 0.75rem 1rem;
+      }
+
+      .filters-label {
+        font-size: 0.72rem;
+        text-transform: uppercase;
+        letter-spacing: 0.2em;
+        color: var(--text-muted);
+        width: 100%;
+        text-align: center;
+        margin-bottom: 0.25rem;
+      }
+
+      .filter-pill {
+        appearance: none;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 500;
+        padding: 0.55rem 1.25rem;
+        border-radius: 999px;
+        border: 1px solid rgba(9, 26, 61, 0.18);
+        background: linear-gradient(160deg, var(--ivory), #f3ebe0);
+        color: #0b224d;
+        cursor: pointer;
+        box-shadow: 0 4px 12px rgba(9, 26, 61, 0.06);
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .filter-pill:hover {
+        border-color: rgba(200, 161, 74, 0.55);
+        box-shadow: 0 6px 18px rgba(9, 26, 61, 0.1);
+      }
+
+      .filter-pill.is-active {
+        border-color: rgba(200, 161, 74, 0.75);
+        background: linear-gradient(
+          135deg,
+          rgba(200, 161, 74, 0.22),
+          rgba(215, 184, 104, 0.12)
+        );
+      }
+
+      :root {
+        --lux-cream: #f5efe2;
+        --ivory: #fbf6eb;
+        --deep-blue: #091a3d;
+        --metal-gold: #c8a14a;
+        --warm-gold: #d7b868;
+        --text-dark: #202733;
+        --text-muted: #4c5567;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .visually-hidden {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        border: 0;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--lux-cream);
+        color: var(--text-dark);
+        line-height: 1.55;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          radial-gradient(
+            circle at 20% 25%,
+            rgba(255, 255, 255, 0.3),
+            transparent 43%
+          ),
+          radial-gradient(
+            circle at 80% 75%,
+            rgba(9, 26, 61, 0.05),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(9, 26, 61, 0.014) 0px,
+            rgba(9, 26, 61, 0.014) 1px,
+            transparent 1px,
+            transparent 5px
+          );
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        background: var(--deep-blue);
+        border-bottom: 1px solid rgba(200, 161, 74, 0.28);
+        padding: 1rem 0;
+        box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+      }
+
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.9rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: var(--metal-gold);
+      }
+
+      .page-intro {
+        text-align: center;
+        padding: 3.5rem 1rem 2.5rem;
+      }
+
+      .page-intro .kicker {
+        font-size: 0.75rem;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--text-muted);
+        margin-bottom: 0.75rem;
+      }
+
+      .page-intro h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 4vw, 2.65rem);
+        color: var(--deep-blue);
+        letter-spacing: 0.02em;
+        margin-bottom: 1rem;
+      }
+
+      .accent-line {
+        width: 64px;
+        height: 2px;
+        margin: 0 auto 1.25rem;
+        background: linear-gradient(to right, transparent, var(--metal-gold), transparent);
+      }
+
+      .page-intro p {
+        max-width: 640px;
+        margin: 0 auto;
+        color: var(--text-muted);
+        font-size: 1rem;
+      }
+
+      .catalog {
+        padding: 0 0 5.5rem;
+      }
+
+      .catalog-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+        gap: 1.75rem;
+      }
+
+      .design-card {
+        background: linear-gradient(165deg, var(--ivory), #f7f1e6);
+        border-radius: 16px;
+        overflow: hidden;
+        border: 1px solid rgba(200, 161, 74, 0.35);
+        box-shadow:
+          0 10px 20px rgba(9, 26, 61, 0.08),
+          0 22px 44px rgba(13, 16, 24, 0.12);
+        display: flex;
+        flex-direction: column;
+        transition:
+          transform 0.28s ease,
+          box-shadow 0.28s ease,
+          border-color 0.28s ease;
+      }
+
+      .design-card:hover {
+        transform: translateY(-4px);
+        border-color: rgba(200, 161, 74, 0.65);
+        box-shadow:
+          0 14px 28px rgba(9, 26, 61, 0.11),
+          0 28px 52px rgba(13, 16, 24, 0.16);
+      }
+
+      .card-image-draft {
+        position: relative;
+        aspect-ratio: 3 / 4;
+        min-height: 260px;
+        background: linear-gradient(180deg, #ebe4d8 0%, #e2dbd0 100%);
+        border-bottom: 1px solid rgba(200, 161, 74, 0.25);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        overflow: hidden;
+      }
+
+      .card-image-draft::before {
+        content: "";
+        position: absolute;
+        inset: 12px;
+        border: 2px dashed rgba(9, 26, 61, 0.18);
+        border-radius: 10px;
+        pointer-events: none;
+      }
+
+      .card-image-draft .draft-label {
+        position: relative;
+        z-index: 1;
+        font-size: 0.78rem;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        color: rgba(9, 26, 61, 0.38);
+        text-align: center;
+        padding: 0 1rem;
+        line-height: 1.5;
+      }
+
+      .card-body {
+        padding: 1.25rem 1.35rem 1.4rem;
+        display: flex;
+        flex-direction: column;
+        flex: 1;
+        gap: 0.85rem;
+      }
+
+      .category-pill {
+        align-self: flex-start;
+        font-size: 0.68rem;
+        font-weight: 600;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        padding: 0.35rem 0.65rem;
+        border-radius: 999px;
+        background: rgba(9, 26, 61, 0.06);
+        color: var(--deep-blue);
+        border: 1px solid rgba(200, 161, 74, 0.35);
+      }
+
+      .design-name {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.2rem;
+        font-weight: 600;
+        color: #0c234f;
+        letter-spacing: 0.02em;
+      }
+
+      .design-name::after {
+        content: "";
+        display: block;
+        width: 48px;
+        height: 2px;
+        margin-top: 0.5rem;
+        background: linear-gradient(to right, var(--metal-gold), transparent);
+      }
+
+      .meta-block {
+        font-size: 0.88rem;
+        color: var(--text-muted);
+      }
+
+      .meta-block dt {
+        font-weight: 600;
+        color: var(--text-dark);
+        margin-top: 0.65rem;
+      }
+
+      .meta-block dt:first-child {
+        margin-top: 0;
+      }
+
+      .meta-block dd {
+        margin: 0.25rem 0 0;
+      }
+
+      .prompt-details {
+        margin-top: 0.35rem;
+        border-top: 1px solid rgba(200, 161, 74, 0.22);
+        padding-top: 0.85rem;
+      }
+
+      .prompt-details summary {
+        cursor: pointer;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        color: var(--deep-blue);
+        list-style: none;
+      }
+
+      .prompt-details summary::-webkit-details-marker {
+        display: none;
+      }
+
+      .prompt-details summary::after {
+        content: " +";
+        color: var(--metal-gold);
+        font-weight: 700;
+      }
+
+      .prompt-details[open] summary::after {
+        content: " −";
+      }
+
+      .prompt-text {
+        margin-top: 0.65rem;
+        font-size: 0.82rem;
+        line-height: 1.6;
+        color: var(--text-muted);
+      }
+
+      .back-row {
+        text-align: center;
+        padding-bottom: 3rem;
+      }
+
+      .back-row a {
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: var(--deep-blue);
+        text-decoration: none;
+        border-bottom: 1px solid rgba(200, 161, 74, 0.5);
+      }
+
+      .back-row a:hover {
+        color: #0c234f;
+        border-bottom-color: var(--metal-gold);
+      }
+
+      @media (max-width: 640px) {
+        .catalog-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Blue Wind</a>
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="catalog_ethaic.html" aria-current="page">Ethnic Heritage</a></li>
+            <li><a href="catalog_formal.html">Formal</a></li>
+            <li><a href="catalog_casual.html">Casual</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main>
+      <section class="page-intro">
+        <div class="container">
+          <p class="kicker">Royal · Heritage · Luxurious</p>
+          <h1>Ethnic Heritage Collection</h1>
+          <div class="accent-line" aria-hidden="true"></div>
+          <p>
+            Eight premium Indian designs—sarees, lehengas, sherwanis, and kurta
+            sets—with fabric notes, occasion styling, and AI image prompts for
+            catalog photography (royal lighting, studio + heritage backdrop).
+          </p>
+        </div>
+      </section>
+
+       <section class="filters" aria-label="Filter by category">
+        <div class="container">
+          <div class="filters-inner">
+            <span class="filters-label">Categories</span>
+
+            <a href="catalog.html" class="filter-pill is-active" data-category="">All</a>
+            <a href="catalog_ethaic.html" class="filter-pill" data-category="ethnic">Ethnic</a>
+            <a href="catalog_formal.html" class="filter-pill" data-category="formal">Formal</a>
+            <a href="catalog_casual.html" class="filter-pill" data-category="casual">Casual</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="catalog" aria-labelledby="ethaic-grid-heading">
+        <h2 id="ethaic-grid-heading" class="visually-hidden">Design listings</h2>
+        <div class="container">
+          <div class="catalog-grid">
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Saree</span>
+                <h3 class="design-name">Rajvardhani</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Handloom Banarasi silk with zari-woven bootis and a
+                    contrasting zari border; lightweight tissue pallu.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Wedding reception, sangeet, grand festive gatherings.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Full-length Indian woman in a deep maroon Banarasi silk saree
+                    with gold zari, draped classically; royal three-quarter
+                    lighting, soft rim light on silk sheen; luxury fashion studio
+                    with muted sandstone arch and carved jali silhouette in the
+                    background; editorial catalog, 85mm lens, shallow depth of
+                    field, warm heritage palette, ultra-detailed fabric texture.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Saree</span>
+                <h3 class="design-name">Noor-e-Chiffon</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Pure chiffon with tone-on-tone threadwork and scattered
+                    sequin highlights; satin-finished fall for petticoat drape.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>
+                    Evening festive, Eid celebrations, cocktail-meets-traditional
+                    events.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Elegant drape in emerald chiffon saree with antique-gold
+                    embroidery; soft royal key light from above-left, subtle fill;
+                    minimalist studio with a faint Mughal floral fresco backdrop;
+                    cinematic luxury catalog, high resolution, natural skin tones,
+                    flowing pallu mid-motion.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Lehenga</span>
+                <h3 class="design-name">Heer Rani</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Silk velvet skirt with zardozi and dabka work; organza dupatta
+                    with scalloped gota edges; structured silk choli.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Wedding, bridal entry, royal-themed festive occasions.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Bridal lehenga in jewel-tone velvet with heavy gold
+                    embroidery; dramatic royal lighting with warm spotlight and cool
+                    edge light; heritage palace corridor with carved pillars
+                    softly blurred; fashion editorial, full body and three-quarter
+                    shots, rich shadows, luxurious texture detail.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Lehenga</span>
+                <h3 class="design-name">Phoolon ki Raat</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Multi-layered organza skirt with floral digital print underlay;
+                    lightweight silk blouse with pearl accents; tulle dupatta with
+                    scattered mirror work.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Sangeet, mehendi, daytime wedding functions.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Pastel layered organza lehenga with floral motifs, youthful
+                    silhouette; bright yet soft studio light with sun-kissed warmth;
+                    subtle Rajasthani haveli courtyard painted in soft bokeh;
+                    premium Indian fashion catalog, airy movement, crisp embroidery
+                    close-ups.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Sherwani</span>
+                <h3 class="design-name">Shahjahan</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Matka/raw silk sherwani with tonal embroidery and concealed
+                    placket; churidar and silk stole with woven border.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Wedding, baraat, formal reception.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Man in ivory-gold raw silk sherwani with refined embroidery,
+                    standing with quiet confidence; royal Rembrandt-style lighting;
+                    luxury studio with deep charcoal backdrop and a single ornate
+                    heritage window frame prop; high-end menswear catalog, sharp
+                    tailoring, fabric macro detail on cuffs and collar.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Sherwani</span>
+                <h3 class="design-name">Sultanat</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Silk-blend jacquard with self-pattern; velvet collar and
+                    button accents; matching silk trousers.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Festive reception, engagement, cultural galas.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Deep navy jacquard sherwani with subtle gold motif, regal
+                    stance; split lighting for sculptural depth; studio set with
+                    warm sandstone texture wall and brass urli prop in soft focus;
+                    cinematic heritage menswear, editorial sharpness, luxurious
+                    folds.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Kurta set</span>
+                <h3 class="design-name">Bagh-e-Bahar</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Pure silk kurta with hand-block-inspired print and minimal zari
+                    piping; straight silk trousers; optional silk kota dupatta.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>Diwali, family pujas, upscale festive lunches.</dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Woman in jewel-toned silk kurta set with elegant straight cut,
+                    delicate jewelry; soft royal butterfly lighting; studio with
+                    hand-painted floral heritage mural softly out of focus;
+                    contemporary Indian luxury catalog, refined color grading,
+                    fabric drape and sleeve detail visible.
+                  </p>
+                </details>
+              </div>
+            </article>
+
+            <article class="design-card">
+              <div class="card-image-draft" aria-hidden="true">
+                <span class="draft-label">Image draft<br />Add your photo</span>
+              </div>
+              <div class="card-body">
+                <span class="category-pill">Kurta set</span>
+                <h3 class="design-name">Virasat</h3>
+                <dl class="meta-block">
+                  <dt>Fabric</dt>
+                  <dd>
+                    Chanderi silk-cotton blend with woven butis; coordinated
+                    palazzo with gota trim; lightweight organza dupatta with
+                    tassels.
+                  </dd>
+                  <dt>Occasion</dt>
+                  <dd>
+                    Haldi-adjacent daytime events, temple visits, traditional
+                    brunches.
+                  </dd>
+                </dl>
+                <details class="prompt-details">
+                  <summary>AI image prompt</summary>
+                  <p class="prompt-text">
+                    Flowing Chanderi kurta co-ord in soft gold and ivory, relaxed
+                    elegance; golden-hour style studio light (warm, directional);
+                    heritage jaali pattern projected or printed on cyclorama for
+                    subtle cultural depth; premium ethnic catalog, natural poses,
+                    intricate weave close-up optional.
+                  </p>
+                </details>
+              </div>
+            </article>
+          </div>
+        </div>
+      </section>
+
+      <div class="back-row">
+        <div class="container">
+          <a href="catalog.html">← Back to main catalog</a>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

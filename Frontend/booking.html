@@ -1,0 +1,454 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Blue Wind | Book an Appointment</title>
+    <script src="js/script.js"></script>
+    <script src="js/booking.js"></script>
+    <!-- <link rel="stylesheet" href="css/booking.css"> -->
+    <style>
+      @import url("https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700&family=Inter:wght@400;500;600&display=swap");
+
+      /* Messages below form */
+      #product-info {
+        text-align: center;
+        margin-top: 10px;
+        color: #555;
+      }
+
+      #status {
+        text-align: center;
+        margin-top: 10px;
+        font-weight: 600;
+      }
+
+      :root {
+        --lux-cream: #f5efe2;
+        --ivory: #fbf6eb;
+        --deep-blue: #091a3d;
+        --metal-gold: #c8a14a;
+        --warm-gold: #d7b868;
+        --text-dark: #202733;
+        --text-muted: #4c5567;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: "Inter", "Segoe UI", Roboto, Arial, sans-serif;
+        background: var(--lux-cream);
+        color: var(--text-dark);
+        line-height: 1.55;
+        min-height: 100vh;
+        position: relative;
+        overflow-x: hidden;
+      }
+
+      body::before {
+        content: "";
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        background:
+          radial-gradient(
+            circle at 20% 25%,
+            rgba(255, 255, 255, 0.3),
+            transparent 43%
+          ),
+          radial-gradient(
+            circle at 80% 75%,
+            rgba(9, 26, 61, 0.05),
+            transparent 40%
+          ),
+          repeating-linear-gradient(
+            45deg,
+            rgba(9, 26, 61, 0.014) 0px,
+            rgba(9, 26, 61, 0.014) 1px,
+            transparent 1px,
+            transparent 5px
+          );
+      }
+
+      .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+      }
+
+      .site-header {
+        background: var(--deep-blue);
+        border-bottom: 1px solid rgba(200, 161, 74, 0.28);
+        padding: 1rem 0;
+        box-shadow: 0 8px 24px rgba(9, 26, 61, 0.12);
+      }
+
+      .site-header .container {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 1.25rem;
+        list-style: none;
+        flex-wrap: wrap;
+      }
+
+      .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.9rem;
+        letter-spacing: 0.03em;
+      }
+
+      .nav-links a:hover {
+        color: var(--warm-gold);
+      }
+
+      .nav-links a[aria-current="page"] {
+        color: var(--metal-gold);
+      }
+
+      .booking-main {
+        padding: 3rem 0 5rem;
+      }
+
+      .page-intro {
+        text-align: center;
+        margin-bottom: 2.5rem;
+      }
+
+      .page-intro .kicker {
+        font-size: 0.75rem;
+        text-transform: uppercase;
+        letter-spacing: 0.28em;
+        color: #786942;
+        margin-bottom: 0.65rem;
+      }
+
+      .page-intro h1 {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(1.85rem, 4vw, 2.6rem);
+        color: #0b224d;
+        font-weight: 600;
+        letter-spacing: 0.03em;
+        margin-bottom: 0.75rem;
+      }
+
+      .page-intro .accent-line {
+        width: 72px;
+        height: 2px;
+        margin: 0 auto 1rem;
+        background: linear-gradient(
+          to right,
+          var(--metal-gold),
+          rgba(200, 161, 74, 0.25)
+        );
+      }
+
+      .page-intro p {
+        color: var(--text-muted);
+        max-width: 460px;
+        margin: 0 auto;
+        font-size: 0.98rem;
+      }
+
+      .form-wrap {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+
+      .booking-form {
+        background: linear-gradient(165deg, var(--ivory), #f3ebe0);
+        border: 1px solid rgba(200, 161, 74, 0.38);
+        border-radius: 18px;
+        padding: 2rem 2rem 2.25rem;
+        box-shadow:
+          0 12px 28px rgba(9, 26, 61, 0.09),
+          0 28px 56px rgba(13, 16, 24, 0.1);
+      }
+
+      .field {
+        margin-bottom: 1.35rem;
+      }
+
+      .field:last-of-type {
+        margin-bottom: 1.75rem;
+      }
+
+      label {
+        display: block;
+        font-size: 0.8rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #0b224d;
+        margin-bottom: 0.45rem;
+      }
+
+      .req {
+        color: var(--metal-gold);
+        font-weight: 700;
+        margin-left: 0.15em;
+      }
+
+      .hint {
+        font-size: 0.78rem;
+        font-weight: 400;
+        text-transform: none;
+        letter-spacing: 0.02em;
+        color: var(--text-muted);
+        margin-top: 0.35rem;
+      }
+
+      input[type="text"],
+      input[type="tel"],
+      input[type="date"],
+      select,
+      textarea {
+        width: 100%;
+        font-family: inherit;
+        font-size: 1rem;
+        color: var(--text-dark);
+        background: #fffdf9;
+        border: 1px solid rgba(9, 26, 61, 0.14);
+        border-radius: 10px;
+        padding: 0.75rem 0.95rem;
+        transition:
+          border-color 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        outline: none;
+        border-color: rgba(200, 161, 74, 0.65);
+        box-shadow: 0 0 0 3px rgba(200, 161, 74, 0.18);
+      }
+
+      input::placeholder,
+      textarea::placeholder {
+        color: rgba(32, 39, 51, 0.45);
+      }
+
+      select {
+        cursor: pointer;
+        appearance: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23091a3d' d='M6 8L0 0h12z'/%3E%3C/svg%3E");
+        background-repeat: no-repeat;
+        background-position: right 1rem center;
+        padding-right: 2.5rem;
+      }
+
+      textarea {
+        min-height: 120px;
+        resize: vertical;
+      }
+
+      .btn-submit {
+        display: block;
+        width: 100%;
+        font-family: inherit;
+        font-size: 0.88rem;
+        font-weight: 600;
+        letter-spacing: 0.12em;
+        text-transform: uppercase;
+        padding: 0.95rem 1.5rem;
+        border-radius: 999px;
+        border: 1px solid rgba(235, 209, 143, 0.85);
+        color: #1a1510;
+        background: linear-gradient(
+          135deg,
+          var(--metal-gold),
+          var(--warm-gold)
+        );
+        cursor: pointer;
+        box-shadow: 0 8px 22px rgba(9, 26, 61, 0.14);
+        transition:
+          transform 0.2s ease,
+          box-shadow 0.2s ease;
+      }
+
+      .btn-submit:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(9, 26, 61, 0.18);
+      }
+
+      .btn-submit:focus-visible {
+        outline: none;
+        box-shadow: 0 0 0 3px rgba(200, 161, 74, 0.35);
+      }
+
+      .form-note {
+        margin-top: 1.25rem;
+        font-size: 0.8rem;
+        color: var(--text-muted);
+        text-align: center;
+      }
+
+      @media (max-width: 540px) {
+        .booking-form {
+          padding: 1.5rem 1.35rem 1.75rem;
+        }
+
+        .booking-main {
+          padding: 2.25rem 0 4rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="container">
+        <a href="index.html" class="logo">Blue Wind</a>
+        <nav aria-label="Main">
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <li><a href="catalog.html">Catalog</a></li>
+            <li><a href="booking.html">Booking</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="contact.html">Contact</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <main class="booking-main">
+      <div class="container">
+        <header class="page-intro">
+          <p class="kicker">Private Consultation</p>
+          <h1>Book an Appointment</h1>
+          <div class="accent-line" aria-hidden="true"></div>
+          <p>
+            Share your details and preferred date. We’ll confirm your visit
+            shortly.
+          </p>
+        </header>
+
+        <div class="form-wrap">
+          <!-- action/method ready for API; no backend wired yet -->
+          <form id="bookingForm" class="booking-form">
+            <div class="field">
+              <label for="name"
+                >Full name<span class="req" aria-hidden="true">*</span></label
+              >
+              <input
+                id="name"
+                name="name"
+                type="text"
+                autocomplete="name"
+                placeholder="As it should appear on your booking"
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div class="field">
+              <label for="phone"
+                >Phone<span class="req" aria-hidden="true">*</span></label
+              >
+              <input
+                id="phone"
+                name="phone"
+                type="tel"
+                inputmode="numeric"
+                autocomplete="tel"
+                placeholder="e.g. 9876543210"
+                required
+                aria-required="true"
+              />
+              <p class="hint">Include country code if applicable.</p>
+            </div>
+
+            <div class="field">
+              <label for="address"
+                >Address<span class="req" aria-hidden="true">*</span></label
+              >
+              <input
+                id="address"
+                name="address"
+                type="text"
+                autocomplete="street-address"
+                placeholder="Street, area, city, PIN"
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div class="field">
+              <label for="date"
+                >Preferred date<span class="req" aria-hidden="true"
+                  >*</span
+                ></label
+              >
+              <input
+                id="date"
+                name="date"
+                type="date"
+                required
+                aria-required="true"
+              />
+            </div>
+
+            <div class="field">
+              <label for="designId"
+                >Design<span class="req" aria-hidden="true">*</span></label
+              >
+              <select
+                id="designId"
+                name="designId"
+                required
+                aria-required="true"
+              >
+                <option value="" disabled selected>
+                  Select a design (matches catalog)
+                </option>
+                <option value="1">Midnight Silk Saree</option>
+                <option value="2">Heritage Sherwani</option>
+                <option value="3">Indo-Western Ensemble</option>
+                <option value="4">Embroidered Lehenga</option>
+                <option value="5">Formal Bandhgala</option>
+                <option value="6">Linen Kurta Set</option>
+              </select>
+              <p class="hint">
+                Replace option values with real IDs when your API is ready.
+              </p>
+            </div>
+
+            <div class="field">
+              <label for="notes">Notes</label>
+              <textarea
+                id="notes"
+                name="notes"
+                rows="4"
+                placeholder="Occasion, measurements, fabric preferences, or questions…"
+              ></textarea>
+            </div>
+
+            <button type="submit" class="btn-submit">Submit booking</button>
+          </form>
+          <p id="product-info"></p>
+          <p id="status"></p>
+          <p class="form-note"><span class="req">*</span> Required fields</p>
+        </div>
+      </div>
+    </main>
+  </body>
+</html>

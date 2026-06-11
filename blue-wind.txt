@@ -1,0 +1,38 @@
+blue-wind/
+│
+├── frontend/
+│   ├── pages/
+│   │   ├── index.html        (Home)
+│   │   ├── booking.html
+│   │   ├── about.html
+│   │   ├── contact.html
+│   │   └── catalog.html
+│   │
+│   ├── css/
+│   │   └── style.css
+│   │
+│   ├── js/
+│   │   ├── main.js           (global logic)
+│   │   └── booking.js        (form logic)
+│   │
+│   └── images/
+│
+├── backend/
+│   ├── controllers/
+│   │   ├── bookingController.js
+│   │   └── designController.js
+│   │
+│   ├── models/
+│   │   ├── Booking.js
+│   │   └── Design.js
+│   │
+│   ├── routes/
+│   │   ├── bookingRoutes.js
+│   │   └── designRoutes.js
+│   │
+│   ├── config/
+│   │   └── db.js
+│   │
+│   └── server.js
+│
+└── README.md

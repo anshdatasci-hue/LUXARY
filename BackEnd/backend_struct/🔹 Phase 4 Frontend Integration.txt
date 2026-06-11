@@ -1,0 +1,27 @@
+🔹 Phase 4: Frontend Integration
+Goal:
+
+Connect backend to your UI
+
+Prompt:
+Writing
+
+Using the project context above:
+
+Step 4: Connect frontend with backend
+
+I want to:
+
+Fetch products from backend
+Dynamically render cards
+Replace static HTML cards
+Implement category filtering using API
+
+Guide me:
+
+Fetch API usage
+Render function
+Integrate with existing UI
+Handle category clicks
+
+Focus on clean JS logic.

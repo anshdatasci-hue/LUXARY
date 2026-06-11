@@ -1,0 +1,28 @@
+🔷 5. UI STRUCTURE (PAGES)
+🏠 Homepage
+Hero section (brand statement)
+Featured designs
+CTA → “Book Appointment”
+🧵 Catalog Page
+Grid layout
+Filters (optional)
+Each card → clickable
+🔍 Design Detail Page
+Large image
+Description
+“Book this design” button
+📅 Booking Page
+Form:
+Name
+Phone
+Address
+Date
+Design reference
+ℹ️ About Page
+Brand story
+Trust + premium feel
+📞 Contact Page
+Phone
+Email
+Location
+WhatsApp CTA

@@ -1,0 +1,26 @@
+🔹 Phase 3: API Development
+Goal:
+
+Build real backend logic
+
+Prompt:
+Writing
+
+Using the project context above:
+
+Step 3: Build Product APIs
+
+I want to create:
+
+GET /api/products (all products)
+GET /api/products?category=Ethnic (filter)
+GET /api/products/ (single product)
+
+Guide me:
+
+Folder structure (routes, controllers)
+Create route files
+Create controller logic
+Connect everything to server.js
+
+Explain flow clearly (route → controller → data).

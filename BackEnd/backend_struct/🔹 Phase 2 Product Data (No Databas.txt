@@ -1,0 +1,26 @@
+🔹 Phase 2: Product Data (No Database Yet)
+Goal:
+
+Understand data flow using JSON (very important)
+
+Prompt:
+Writing
+
+Using the project context above:
+
+Step 2: Product Data Setup (No database)
+
+I want to:
+
+Create a products.json file
+Define product structure (name, category, image, description)
+Load this data in backend
+
+Guide me:
+
+Create sample product dataset (fashion-based)
+Where to store it
+How to import JSON in Node.js
+Verify it works
+
+Keep it simple and realistic.

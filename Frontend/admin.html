@@ -1,0 +1,123 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Panel - Bookings</title>
+    <link rel="stylesheet" href="css/admin.css" />
+    <link rel="stylesheet" href="css/styles.css" />
+    <style>
+      /* Admin page — navbar only (internal) */
+      header.admin-header {
+        position: relative;
+        min-height: 0;
+        background: #091a3d;
+        border-bottom: 1px solid rgba(200, 161, 74, 0.35);
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.12);
+      }
+
+      header.admin-header .top-nav {
+        position: relative;
+        width: 100%;
+        padding: 1rem 0;
+        background: rgba(9, 26, 61, 0.95);
+      }
+
+      header.admin-header .top-nav .container {
+        width: min(1120px, 92%);
+        margin: 0 auto;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 1rem;
+      }
+
+      header.admin-header .logo {
+        text-decoration: none;
+        color: #fff;
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.35rem;
+        letter-spacing: 0.03em;
+      }
+
+      header.admin-header .logo:hover {
+        color: #d7b868;
+      }
+
+      header.admin-header .nav-links {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 1.1rem 1.35rem;
+        list-style: none;
+        margin: 0;
+        padding: 0;
+      }
+
+      header.admin-header .nav-links a {
+        text-decoration: none;
+        color: #e8ecf4;
+        font-size: 0.92rem;
+        letter-spacing: 0.03em;
+      }
+
+      header.admin-header .nav-links a:hover {
+        color: #d7b868;
+      }
+
+      @media (max-width: 640px) {
+        header.admin-header .top-nav .container {
+          flex-direction: column;
+          align-items: flex-start;
+        }
+
+        header.admin-header .nav-links {
+          gap: 0.5rem 1rem;
+        }
+      }
+    </style>
+    <script src="js/admin.js" defer></script>
+    <script src="js/script.js"></script>
+  </head>
+  <body>
+    <header class="admin-header">
+      <nav class="top-nav">
+        <div class="container">
+          <a href="#" class="logo">Blue Wind</a>
+          <ul class="nav-links">
+            <li><a href="index.html">Home</a></li>
+            <!-- <li><a href="catalog.html">Catalog</a></li> -->
+            <!-- <li><a href="booking.html">Booking</a></li> -->
+            <!-- <li><a href="about.html">About</a></li> -->
+            <!-- <li><a href="contact.html">Contact</a></li> -->
+          </ul>
+        </div>
+      </nav>
+    </header>
+    <main class="admin-page">
+      <h1>All Bookings</h1>
+
+      <p id="loadingText" class="loading-text">Loading bookings...</p>
+      <p id="messageArea" class="message-area" hidden></p>
+
+      <div class="table-wrap">
+        <table id="bookingsTable" class="bookings-table" hidden>
+          <thead>
+            <tr>
+              <th>Name</th>
+              <th>Phone</th>
+              <th>Address</th>
+              <th>Date</th>
+              <th>Design</th>
+              <th>Notes</th>
+              <th>Status</th>
+              <th>Created</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody id="bookingTableBody"></tbody>
+        </table>
+      </div>
+    </main>
+  </body>
+</html>
