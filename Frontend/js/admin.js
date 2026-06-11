@@ -1,4 +1,4 @@
-const API_URL = "http://localhost:5000/api/bookings";
+const API_URL = "http://luxary.onrender.com/api/bookings";
 const password = prompt("Enter admin password:");
 
 if (password !== "admin123") {
@@ -152,14 +152,14 @@ function addActionCell(row, id, status) {
 
 async function updateStatus(id) {
   try {
-    const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
+    const res = await fetch(`http://luxary.onrender.com/api/bookings/${id}`, {
       method: "PUT",
       headers: {
-        "Content-Type": "application/json"
+        "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        status: "completed"
-      })
+        status: "completed",
+      }),
     });
 
     if (!res.ok) {
@@ -168,7 +168,6 @@ async function updateStatus(id) {
 
     // 🔄 Reload updated data
     loadBookings();
-
   } catch (err) {
     console.error(err);
     alert("Failed to update status");
@@ -178,12 +177,14 @@ async function updateStatus(id) {
 async function deleteBooking(id) {
   try {
     // ⚠️ Confirmation popup
-    const confirmDelete = confirm("Are you sure you want to delete this booking?");
+    const confirmDelete = confirm(
+      "Are you sure you want to delete this booking?",
+    );
 
     if (!confirmDelete) return;
 
-    const res = await fetch(`http://localhost:5000/api/bookings/${id}`, {
-      method: "DELETE"
+    const res = await fetch(`http://luxary.onrender.com/api/bookings/${id}`, {
+      method: "DELETE",
     });
 
     if (!res.ok) {
@@ -192,7 +193,6 @@ async function deleteBooking(id) {
 
     // 🔄 Reload table
     loadBookings();
-
   } catch (err) {
     console.error(err);
     alert("Failed to delete booking");

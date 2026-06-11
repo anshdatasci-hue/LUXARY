@@ -71,7 +71,7 @@ document.addEventListener("DOMContentLoaded", () => {
     console.log("📡 Sending request...", bookingData);
 
     try {
-      const response = await fetch("http://localhost:5000/api/bookings", {
+      const response = await fetch("http://luxary.onrender.com/api/bookings", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
